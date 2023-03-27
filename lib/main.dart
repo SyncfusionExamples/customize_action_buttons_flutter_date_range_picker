@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-void main() => runApp(ActionButton());
+void main() => runApp(const ActionButton());
 
 class ActionButton extends StatefulWidget {
+  const ActionButton({super.key});
+
   @override
   DateSelectionState createState() => DateSelectionState();
 }
@@ -19,35 +20,35 @@ class DateSelectionState extends State<ActionButton> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           body: SafeArea(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            child: Column(
               children: [
-                TextButton(
-                  onPressed: () {
-                    selectedDate = _controller.selectedDate;
-                  },
-                  child: Text("Confirm"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        selectedDate = _controller.selectedDate;
+                      },
+                      child: const Text("Confirm"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        _controller.selectedDate = selectedDate;
+                      },
+                      child: const Text("Cancel"),
+                    ),
+                  ],
                 ),
-                TextButton(
-                  onPressed: () {
-                    _controller.selectedDate = selectedDate;
-                  },
-                  child: Text("Cancel"),
+                Expanded(
+                  child: SfDateRangePicker(
+                    view: DateRangePickerView.month,
+                    selectionMode: DateRangePickerSelectionMode.single,
+                    controller: _controller,
+                  ),
                 ),
               ],
             ),
-            Expanded(
-              child: SfDateRangePicker(
-                view: DateRangePickerView.month,
-                selectionMode: DateRangePickerSelectionMode.single,
-                controller: _controller,
-              ),
-            ),
-          ],
-        ),
-      )),
+          )),
     );
   }
 }
